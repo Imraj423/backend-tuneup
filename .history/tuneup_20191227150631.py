@@ -27,20 +27,52 @@ def read_movies(src):
 
 
 @profile
-def find_duplicate_movies(src='movies.txt'):
+def find_duplicate_movies(src):
     movies = read_movies(src)
-    movies = [movie.lower() for movie in movies]
-    movies.sort()
-    duplicates = [movie1 for movie1, movie2 in zip(
-        movies[:-1], movies[1:]) if movie1 == movie2]
     return duplicates
 
 
-find_duplicate_movies()
+@profile
+def find_duplicate_movies_with_in(src):
+    movies = read_movies(src)
+    duplicates = []
+    while movies:
+        movie = movies.pop()
+        if movie in movies:
+            duplicates.append(movie)
+    return duplicates
+
+
+@profile
+def find_duplicate_movies_for_loop(src):
+    movies = read_movies(src)
+    duplicates = []
+    for idx, movie in enumerate(movies):
+        if movie in movies[idx + 1:]:
+            duplicates.append(movie)
+
+    return duplicates
+
+
+@profile
+def find_duplicate_movies_hash(src):
+    movies = read_movies(src)
+    duplicates = []
+    movie_hash = {}
+
+    for movie in movies:
+        if movie not in movie_hash:
+            movie_hash[movie] = 1
+        else:
+            duplicates.append(movie)
+
+    return duplicates
 
 
 def timeit_helper():
     """Part A:  Obtain some profiling measurements using timeit"""
+    # number = 10
+    # repeat = 3
     t = timeit.Timer(lambda: find_duplicate_movies('movies.txt'))
     result = t.repeat(repeat=7, number=3)
     mean = min([time / 3 for time in result])
@@ -54,5 +86,5 @@ def main():
     print('\n'.join(result))
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

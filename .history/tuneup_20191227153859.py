@@ -10,10 +10,10 @@ import timeit
 
 
 def profile(func):
-    def inner(file):
+    def inner(*args, **kwargs):
         pr = cProfile.Profile()
         pr.enable()
-        results = func(file)
+        results = func(*args, **kwargs)
         pr.disable()
         stats = pstats.Stats(pr).sort_stats('cumulative')
         print('Results from: %s' % func.__name__)
@@ -23,11 +23,18 @@ def profile(func):
 
 
 def read_movies(src):
-    return False
+    return f.read().splitlines()
+
+
+# @profile
+# def find_duplicate_movies(src):
+#     movies = read_movies(src)
+#     return duplicates
 
 
 @profile
 def find_duplicate_movies(src='movies.txt'):
+
     movies = read_movies(src)
     movies = [movie.lower() for movie in movies]
     movies.sort()

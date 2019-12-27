@@ -26,8 +26,15 @@ def read_movies(src):
     return False
 
 
+# @profile
+# def find_duplicate_movies(src):
+#     movies = read_movies(src)
+#     return duplicates
+
+
 @profile
 def find_duplicate_movies(src='movies.txt'):
+
     movies = read_movies(src)
     movies = [movie.lower() for movie in movies]
     movies.sort()
@@ -37,6 +44,53 @@ def find_duplicate_movies(src='movies.txt'):
 
 
 find_duplicate_movies()
+
+@profile
+def find_duplicate_movies(src):
+    """Returns a list of duplicate movies from a src list"""
+    movies = read_movies(src)
+    duplicates = []
+    while movies:
+        movie = movies.pop()
+        if is_duplicate(movie, movies):
+            duplicates.append(movie)
+    return duplicates
+
+# @profile
+# def find_duplicate_movies_with_in(src):
+#     movies = read_movies(src)
+#     duplicates = []
+#     while movies:
+#         movie = movies.pop()
+#         if movie in movies:
+#             duplicates.append(movie)
+#     return duplicates
+
+
+# @profile
+# def find_duplicate_movies_for_loop(src):
+#     movies = read_movies(src)
+#     duplicates = []
+#     for idx, movie in enumerate(movies):
+#         if movie in movies[idx + 1:]:
+#             duplicates.append(movie)
+
+#     return duplicates
+
+
+# @profile
+# def find_duplicate_movies_hash(src):
+#     movies = read_movies(src)
+#     duplicates = []
+#     movie_hash = {}
+
+#     for movie in movies:
+#         if movie not in movie_hash:
+#             movie_hash[movie] = 1
+#         else:
+#             duplicates.append(movie)
+
+#     return duplicates
 
 
 def timeit_helper():

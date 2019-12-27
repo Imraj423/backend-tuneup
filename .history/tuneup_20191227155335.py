@@ -10,6 +10,7 @@ import timeit
 
 
 def profile(func):
+   
     def inner(file):
         pr = cProfile.Profile()
         pr.enable()
@@ -36,7 +37,7 @@ def find_duplicate_movies(src='movies.txt'):
     return duplicates
 
 
-find_duplicate_movies()
+find_duplicate_movies(file)
 
 
 def timeit_helper():

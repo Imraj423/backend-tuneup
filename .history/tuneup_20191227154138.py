@@ -11,6 +11,7 @@ import timeit
 
 def profile(func):
     def inner(file):
+        file = movies.txt
         pr = cProfile.Profile()
         pr.enable()
         results = func(file)
@@ -26,8 +27,15 @@ def read_movies(src):
     return False
 
 
+# @profile
+# def find_duplicate_movies(src):
+#     movies = read_movies(src)
+#     return duplicates
+
+
 @profile
 def find_duplicate_movies(src='movies.txt'):
+
     movies = read_movies(src)
     movies = [movie.lower() for movie in movies]
     movies.sort()

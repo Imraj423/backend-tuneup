@@ -10,6 +10,7 @@ import timeit
 
 
 def profile(func):
+   
     def inner(file):
         pr = cProfile.Profile()
         pr.enable()
