@@ -23,36 +23,39 @@ def profile(func):
 
 
 def read_movies(src):
-    print('Reading file: {}'.format(src))
-    with open(src, 'r') as f:
-        return f.read().splitlines()
-
-
-def is_duplicate(title, movies):
-    if title in movies:
-        return True
     return False
+
+
+# @profile
+# def find_duplicate_movies(src):
+#     movies = read_movies(src)
+#     return duplicates
 
 
 @profile
 def find_duplicate_movies(src='movies.txt'):
+
     movies = read_movies(src)
     movies = [movie.lower() for movie in movies]
     movies.sort()
     duplicates = [movie1 for movie1, movie2 in zip(
         movies[:-1], movies[1:]) if movie1 == movie2]
-    print(duplicates)
     return duplicates
 
 
+find_duplicate_movies()
+
+
 def timeit_helper():
-    time = timeit.Timer(stmt='pass', setup='pass')
-    result = time.repeat(repeat=7, number=5)
+    """Part A:  Obtain some profiling measurements using timeit"""
+    t = timeit.Timer(lambda: find_duplicate_movies('movies.txt'))
+    result = t.repeat(repeat=7, number=3)
     mean = min([time / 3 for time in result])
     print('Best time across 7 repeats of function 3 times is: %s' % mean)
 
 
 def main():
+    """Computes a list of duplicate movie entries"""
     result = find_duplicate_movies('movies.txt')
     print('Found {} duplicate movies:'.format(len(result)))
     print('\n'.join(result))

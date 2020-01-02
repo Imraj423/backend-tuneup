@@ -23,12 +23,14 @@ def profile(func):
 
 
 def read_movies(src):
+    """Returns a list of movie titles"""
     print('Reading file: {}'.format(src))
     with open(src, 'r') as f:
         return f.read().splitlines()
 
 
 def is_duplicate(title, movies):
+    """returns True if title is within movies list"""
     if title in movies:
         return True
     return False
@@ -46,6 +48,7 @@ def find_duplicate_movies(src='movies.txt'):
 
 
 def timeit_helper():
+    """Part A:  Obtain some profiling measurements using timeit"""
     time = timeit.Timer(stmt='pass', setup='pass')
     result = time.repeat(repeat=7, number=5)
     mean = min([time / 3 for time in result])
@@ -53,6 +56,7 @@ def timeit_helper():
 
 
 def main():
+    """Computes a list of duplicate movie entries"""
     result = find_duplicate_movies('movies.txt')
     print('Found {} duplicate movies:'.format(len(result)))
     print('\n'.join(result))
